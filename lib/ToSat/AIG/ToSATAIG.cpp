@@ -22,6 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ********************************************************************/
 
+#include <unistd.h>
 #include "stp/ToSat/AIG/ToSATAIG.h"
 #include "stp/Simplifier/constantBitP/ConstantBitPropagation.h"
 #include "stp/Simplifier/Simplifier.h"
@@ -88,7 +89,8 @@ void ToSATAIG::handle_cnf_options(Cnf_Dat_t* cnfData, bool needAbsRef)
   if (bm->UserFlags.output_CNF_flag)
   {
     std::stringstream fileName;
-    fileName << "output_" << bm->CNFFileNameCounter++ << ".cnf";
+    fileName << "output_" << ::getpid() << ".cnf";
+//    fileName << "output1_" << bm->CNFFileNameCounter++ << ".cnf";
     Cnf_DataWriteIntoFile(cnfData, (char*)fileName.str().c_str(), 0);
   }
 
